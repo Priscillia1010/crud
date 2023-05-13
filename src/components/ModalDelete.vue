@@ -1,14 +1,11 @@
 <template>
   <div>
     <div class="container">
-      <b-button
-        class="mb-1 mt-2"
-        @click="$bvModal.show('modal-scoped')"
-        variant="success"
-        >Tambah Data</b-button
+      <b-button @click="$bvModal.show(id + '-delete')" variant="danger"
+        >Delete Data</b-button
       >
 
-      <b-modal id="modal-scoped">
+      <b-modal :id="id + '-delete'">
         <template #modal-header="{ close }">
           <!-- Emulate built in modal header close button action -->
           <b-button size="sm" variant="outline-danger" @click="close()">
@@ -18,14 +15,14 @@
         </template>
 
         <template>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="nama_sekolah">Name Sekolah</label>
             <input
               type="text"
               name="nama sekolah"
               class="form-control"
               placeholder="nama sekolah"
-              v-model="nama_sekolah"
+              v-model="nama_sekolah_data"
             />
           </div>
 
@@ -36,7 +33,7 @@
               name="tahun"
               class="form-control"
               placeholder="tahun"
-              v-model="tahun"
+              v-model="tahun_data"
             />
           </div>
 
@@ -47,7 +44,7 @@
               name="jurusan"
               class="form-control"
               placeholder="jurusan"
-              v-model="jurusan"
+              v-model="jurusan_data"
             />
           </div>
 
@@ -58,16 +55,17 @@
               name="jenjang"
               class="form-control"
               placeholder="jenjang"
-              v-model="jenjang"
+              v-model="jenjang_data"
             />
           </div>
-          {{ nama_sekolah }} - {{ tahun }} - {{ jurusan }} - {{ jenjang }}
+          {{ nama_sekolah }} - {{ tahun }} - {{ jurusan }} - {{ jenjang }} -->
+          <h3>Are you sure want to delete this data ?</h3>
         </template>
 
         <template #modal-footer="{ cancel }">
           <!-- <b>Custom Footer</b> -->
           <!-- Emulate built in modal footer ok and cancel button actions -->
-          <b-button size="sm" variant="success" @click.prevent="createData">
+          <b-button size="sm" variant="success" @click.prevent="deleteData">
             OK
           </b-button>
           <b-button size="sm" variant="danger" @click="cancel()">
@@ -91,30 +89,26 @@
 import axios from "axios";
 
 export default {
-  name: "ModalButton",
-  data() {
-    return {
-      nama_sekolah: "",
-      tahun: "",
-      jurusan: "",
-      jenjang: "",
-    };
-  },
+  name: "ModalDelete",
+  props: ["id"],
+  // data() {
+  //   return {
+  //     nama_sekolah_data: this.nama_sekolah,
+  //     tahun_data: this.tahun,
+  //     jurusan_data: this.jurusan,
+  //     jenjang_data: this.jenjang,
+  //   };
+  // },
   methods: {
-    createData() {
+    deleteData() {
       axios
-        .post("http://localhost:3000/pendidikan", {
-          nama_sekolah: this.nama_sekolah,
-          tahun: this.tahun,
-          jurusan: this.jurusan,
-          jenjang: this.jenjang,
-        })
+        .delete("http://localhost:3000/pendidikan/" + this.id)
         .then(() => {
-          alert("data berhasil ditambah");
+          alert("data berhasil dihapus");
           window.location.reload(true);
         })
         .catch(() => {
-          alert("data gagal ditambah");
+          alert("data gagal dihapus");
           window.location.reload(true);
         });
     },

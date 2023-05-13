@@ -8,6 +8,7 @@
           <th scope="col">Tahun</th>
           <th scope="col">Jurusan</th>
           <th scope="col">Jenjang</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -17,6 +18,17 @@
           <td>{{ data.tahun }}</td>
           <td>{{ data.jurusan }}</td>
           <td>{{ data.jenjang }}</td>
+          <td>
+            <Update
+              class="mb-1"
+              :id="data.id"
+              :nama_sekolah="data.nama_sekolah"
+              :tahun="data.tahun"
+              :jurusan="data.jurusan"
+              :jenjang="data.jenjang"
+            ></Update>
+            <Delete :id="data.id"></Delete>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -24,8 +36,14 @@
 </template>
 <script>
 import axios from "axios";
+import Update from "./ModalUpdate.vue";
+import Delete from "./ModalDelete.vue";
 export default {
   name: "TablePage",
+  components: {
+    Update,
+    Delete,
+  },
   data() {
     return {
       datas: [],

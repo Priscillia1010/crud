@@ -1,14 +1,9 @@
 <template>
   <div>
     <div class="container">
-      <b-button
-        class="mb-1 mt-2"
-        @click="$bvModal.show('modal-scoped')"
-        variant="success"
-        >Tambah Data</b-button
-      >
+      <b-button @click="$bvModal.show(id)">Update Data</b-button>
 
-      <b-modal id="modal-scoped">
+      <b-modal :id="id">
         <template #modal-header="{ close }">
           <!-- Emulate built in modal header close button action -->
           <b-button size="sm" variant="outline-danger" @click="close()">
@@ -25,7 +20,7 @@
               name="nama sekolah"
               class="form-control"
               placeholder="nama sekolah"
-              v-model="nama_sekolah"
+              v-model="nama_sekolah_data"
             />
           </div>
 
@@ -36,7 +31,7 @@
               name="tahun"
               class="form-control"
               placeholder="tahun"
-              v-model="tahun"
+              v-model="tahun_data"
             />
           </div>
 
@@ -47,7 +42,7 @@
               name="jurusan"
               class="form-control"
               placeholder="jurusan"
-              v-model="jurusan"
+              v-model="jurusan_data"
             />
           </div>
 
@@ -58,7 +53,7 @@
               name="jenjang"
               class="form-control"
               placeholder="jenjang"
-              v-model="jenjang"
+              v-model="jenjang_data"
             />
           </div>
           {{ nama_sekolah }} - {{ tahun }} - {{ jurusan }} - {{ jenjang }}
@@ -67,7 +62,7 @@
         <template #modal-footer="{ cancel }">
           <!-- <b>Custom Footer</b> -->
           <!-- Emulate built in modal footer ok and cancel button actions -->
-          <b-button size="sm" variant="success" @click.prevent="createData">
+          <b-button size="sm" variant="success" @click.prevent="updateData">
             OK
           </b-button>
           <b-button size="sm" variant="danger" @click="cancel()">
@@ -91,30 +86,31 @@
 import axios from "axios";
 
 export default {
-  name: "ModalButton",
+  name: "ModalUpdate",
+  props: ["id", "nama_sekolah", "tahun", "jurusan", "jenjang"],
   data() {
     return {
-      nama_sekolah: "",
-      tahun: "",
-      jurusan: "",
-      jenjang: "",
+      nama_sekolah_data: this.nama_sekolah,
+      tahun_data: this.tahun,
+      jurusan_data: this.jurusan,
+      jenjang_data: this.jenjang,
     };
   },
   methods: {
-    createData() {
+    updateData() {
       axios
-        .post("http://localhost:3000/pendidikan", {
-          nama_sekolah: this.nama_sekolah,
-          tahun: this.tahun,
-          jurusan: this.jurusan,
-          jenjang: this.jenjang,
+        .put("http://localhost:3000/pendidikan/" + this.id, {
+          nama_sekolah: this.nama_sekolah_data,
+          tahun: this.tahun_data,
+          jurusan: this.jurusan_data,
+          jenjang: this.jenjang_data,
         })
         .then(() => {
-          alert("data berhasil ditambah");
+          alert("data berhasil diupdate");
           window.location.reload(true);
         })
         .catch(() => {
-          alert("data gagal ditambah");
+          alert("data gagal diupdate");
           window.location.reload(true);
         });
     },
