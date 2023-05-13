@@ -1,0 +1,39 @@
+{
+  "pendidikan": [
+    {
+      "id": 1,
+      "nama_sekolah": "Ecole Children's House",
+      "tahun": 2007,
+      "jenjang": "TK",
+      "jurusan": ""
+    },
+    {
+      "id": 2,
+      "nama_sekolah": "Mahatma Gading School",
+      "tahun": 2011,
+      "jenjang": "SD",
+      "jurusan": ""
+    },
+    {
+      "id": 3,
+      "nama_sekolah": "Mahatma Gading School",
+      "tahun": 2017,
+      "jenjang": "SMP",
+      "jurusan": ""
+    },
+    {
+      "id": 4,
+      "nama_sekolah": "Mahatma Gading School",
+      "tahun": 2020,
+      "jenjang": "SMA",
+      "jurusan": "IPA"
+    },
+    {
+      "id": 5,
+      "nama_sekolah": "Binus University",
+      "tahun": 2023,
+      "jenjang": "Kuliah",
+      "jurusan": "Computer Science"
+    }
+  ]
+}
